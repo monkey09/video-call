@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
+const path = require('path')
 const cors = require('cors')
 const io = require('socket.io')(server, {
   cors: {
@@ -10,8 +11,14 @@ const io = require('socket.io')(server, {
 })
 // const {v4: uuidV4} = require('uuid')
 app.use(cors())
-app.set('view engine', 'ejs') // Tell Express we are using EJS
-app.use(express.static('public')) // Tell express to pull the client script from the public folder
+const __dirname1 = path.resolve()
+app.set('view engine', 'ejs')
+app.use(express.static(path.join(__dirname1, "/public")))
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname1, "public"))
+)
+//app.set('view engine', 'ejs') // Tell Express we are using EJS
+//app.use(express.static('public')) // Tell express to pull the client script from the public folder
 
 // If they join the base link, generate a random UUID and send them to a new room with said UUID
 // app.get('/', (req, res) => {
@@ -35,4 +42,5 @@ io.on('connection', socket => {
     })
 })
 
-server.listen(3000) // Run the server on the 3000 port
+const PORT = process.env.PORT || 3000
+server.listen(PORT) // Run the server on the 3000 port
