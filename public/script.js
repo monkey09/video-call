@@ -1,4 +1,4 @@
-const socket = io('/') // Create our socket
+const socket = io('https://video-test-production.up.railway.app') // Create our socket
 const videoGrid = document.getElementById('video-grid') // Find the Video-Grid element
 
 const myPeer = new Peer() // Creating a peer element which represents the current user
