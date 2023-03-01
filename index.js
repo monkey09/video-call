@@ -8,15 +8,15 @@ const io = require('socket.io')(server, {
     origin: 'http://localhost:3000',
   }
 })
-const {v4: uuidV4} = require('uuid')
+// const {v4: uuidV4} = require('uuid')
 app.use(cors())
 app.set('view engine', 'ejs') // Tell Express we are using EJS
 app.use(express.static('public')) // Tell express to pull the client script from the public folder
 
 // If they join the base link, generate a random UUID and send them to a new room with said UUID
-app.get('/', (req, res) => {
-    res.redirect(`/${uuidV4()}`)
-})
+// app.get('/', (req, res) => {
+//     res.redirect(`/${uuidV4()}`)
+// })
 // If they join a specific room, then render that room
 app.get('/:room', (req, res) => {
     res.render('room', {roomId: req.params.room})
